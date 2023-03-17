@@ -6,11 +6,7 @@
       </el-form-item>
       <el-form-item label="验证码">
         <div class="get-code">
-          <el-input
-            type="text"
-            autocomplete="off"
-            v-model="phoneFormObj.code"
-          />
+          <el-input type="text" autocomplete="off" v-model="phoneFormObj.code" />
           <el-button type="primary" class="get-btn">获取验证码</el-button>
         </div>
       </el-form-item>

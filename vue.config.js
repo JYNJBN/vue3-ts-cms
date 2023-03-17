@@ -10,7 +10,7 @@ module.exports = defineConfig({
       // 配置跨域
       '/api': {
         //需要代理的请求标识
-        target: `http://152.136.185.210:5000`, //请求后台接口
+        target: `http://123.207.32.32:5000`, //请求后台接口
         changeOrigin: true, // 允许跨域
         pathRewrite: {
           '^/api': '' // 重写请求 替换请求当中的api这个字符串
@@ -18,6 +18,7 @@ module.exports = defineConfig({
       }
     }
   },
+
   configureWebpack: {
     plugins: [
       AutoImport({

@@ -4,12 +4,11 @@ class LocalCache {
     window.localStorage.setItem(key, JSON.stringify(value))
   }
   getLocalCache(key: string) {
-    let value = localStorage.getItem(key)
+    const value = localStorage.getItem(key)
     if (value) {
       //转化成原来的格式
-      value = JSON.parse(value)
+      return JSON.parse(value)
     }
-    return value
   }
   deleteLocalCache(key: string) {
     window.localStorage.removeItem(key)

@@ -3,12 +3,7 @@
     <h2>后台管理系统</h2>
     <div class="tab">
       <!-- 切换表单 -->
-      <el-tabs
-        type="border-card"
-        class="demo-tabs"
-        stretch
-        v-model="toggleValue"
-      >
+      <el-tabs type="border-card" class="demo-tabs" stretch v-model="toggleValue">
         <el-tab-pane name="account">
           <template #label>
             <span class="custom-tabs-label">
@@ -29,9 +24,7 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <el-button @click="handleLoginClick" class="login-button" type="primary"
-      >登录</el-button
-    >
+    <el-button @click="handleLoginClick" class="login-button" type="primary">登录</el-button>
   </div>
 </template>
 <script lang="ts" setup>

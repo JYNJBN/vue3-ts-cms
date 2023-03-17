@@ -1,12 +1,9 @@
 import { defineStore } from 'pinia'
-import {
-  accountLoginRequest,
-  requestUserInfo,
-  requestUserMenu
-} from '@/service/login/login-serve'
+import { accountLoginRequest, requestUserInfo, requestUserMenu } from '@/service/login/login-serve'
 import localCache from '@/utils/cache'
+import { getJurisdictionRouteMenu, getPermissionButtonArr } from '@/utils/generatePermissionTable'
 
-import type { accountFormObj } from '@/store/login/login_type'
+import type { accountFormObj } from './login-type'
 import router from '@/router'
 
 export const useLogin = defineStore('login', {
@@ -14,9 +11,10 @@ export const useLogin = defineStore('login', {
     return {
       token: '',
       //用户信息
-      userInfo: '',
+      userInfo: [] as any,
       //用户对应的菜单
-      userMenu: ''
+      userMenu: [] as any,
+      PermissionButtonArr: [] as any
     }
   },
   getters: {},
@@ -26,18 +24,26 @@ export const useLogin = defineStore('login', {
     keepStoreData() {
       let token: string | null = ''
       token = localCache.getLocalCache('token')
+      //这里写if语句就是为了片段是不是第一次登录如果是第一次登录就不会执行if语句里面的操作
+      //因为第一次登录localStore里面没有储存数据
       if (token) {
         this.token = token
       }
-      let userInfo: string | null = ''
+      let userInfo: [] | null = []
       userInfo = localCache.getLocalCache('userInfo')
       if (userInfo) {
         this.userInfo = userInfo
       }
-      let userMenu: string | null = ''
+      let userMenu: [] | null = []
       userMenu = localCache.getLocalCache('userMenu')
       if (userMenu) {
         this.userMenu = userMenu
+        //动态添加路由
+        getJurisdictionRouteMenu(this.userMenu).forEach((el) => {
+          router.addRoute('main', el)
+        })
+        //添加按钮增删改查权限表
+        this.PermissionButtonArr = getPermissionButtonArr(this.userMenu)
       }
     },
     //点击登录
@@ -56,12 +62,18 @@ export const useLogin = defineStore('login', {
       this.userInfo = userInfo
 
       //获取用户对应的菜单
+      console.log(accountData.id)
       const { data: userMenu } = await requestUserMenu(accountData.id)
+      console.log(userMenu)
+
       localCache.setLocalCache('userMenu', userMenu)
       this.userMenu = userMenu
 
       //跳转到首页
       router.push('/main')
+      getJurisdictionRouteMenu(this.userMenu).forEach((el) => {
+        router.addRoute('main', el)
+      })
     }
   }
 })

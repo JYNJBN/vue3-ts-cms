@@ -1,11 +1,7 @@
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 //导入自己封装的类型
-import type {
-  axiosInterceptors,
-  yhRequestConfig,
-  yhAxiosRequestConfig
-} from './type'
+import type { axiosInterceptors, yhRequestConfig, yhAxiosRequestConfig } from './type'
 import localCache from '@/utils/cache'
 import { ElLoading, ElMessage } from 'element-plus'
 class YhRequest {
@@ -88,6 +84,18 @@ class YhRequest {
     return this.request<T>({
       ...config,
       method: 'POST'
+    })
+  }
+  delete<T = any>(config: yhAxiosRequestConfig) {
+    return this.request<T>({
+      ...config,
+      method: 'DELETE'
+    })
+  }
+  patch<T = any>(config: yhAxiosRequestConfig) {
+    return this.request<T>({
+      ...config,
+      method: 'PATCH'
     })
   }
 }

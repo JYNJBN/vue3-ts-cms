@@ -1,12 +1,11 @@
 import { yhRequest } from '..'
-import { accountFormObj } from '@/store/login/login_type'
+import { accountFormObj } from '@/store/login/login-type'
 
 enum requestLoginUrl {
   loginUrl = '/login',
   userInfoUrl = '/users/', //例子 /users/id
   userMenu = '/role/' // /role/id/menu
 }
-
 export function accountLoginRequest(loginInfo: accountFormObj) {
   return yhRequest.post({
     url: requestLoginUrl.loginUrl,

@@ -2,18 +2,10 @@
   <div class="login-account">
     <el-form :model="accountFormObj" :rules="rules" ref="accountForm">
       <el-form-item label="账号" prop="name">
-        <el-input
-          type="text"
-          autocomplete="off"
-          v-model="accountFormObj.name"
-        />
+        <el-input type="text" autocomplete="off" v-model="accountFormObj.name" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input
-          type="password"
-          autocomplete="off"
-          v-model="accountFormObj.password"
-        />
+        <el-input type="password" autocomplete="off" v-model="accountFormObj.password" />
       </el-form-item>
     </el-form>
     <div class="rememberOrForgetThePassword">

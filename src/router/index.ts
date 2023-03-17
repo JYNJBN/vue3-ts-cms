@@ -9,11 +9,19 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
-    component: () => import('@/view/login/login.vue')
+    component: () => import('@/view/login/login.vue'),
+    name: 'login'
   },
   {
     path: '/main',
-    component: () => import('@/view/main/main.vue')
+    component: () => import('@/view/main/main.vue'),
+    name: 'main',
+    children: []
+  },
+  {
+    path: '/:catchAll(.*)',
+    component: () => import('@/view/not-found/not-found.vue'),
+    name: 'not-Found'
   }
 ]
 
@@ -21,6 +29,7 @@ const router = createRouter({
   routes,
   history: createWebHashHistory()
 })
+
 router.beforeEach((to) => {
   if (to.path !== '/login') {
     const token = localCache.getLocalCache('token')
@@ -28,6 +37,10 @@ router.beforeEach((to) => {
     if (!token) {
       return '/login'
     }
+  }
+  //当路径为main的时候默认给他跳转到用户菜单对应的第一个选项对应的路径
+  if (to.path === '/main') {
+    return localCache.getLocalCache('userMenu')[0].children[0].url
   }
 })
 export default router
