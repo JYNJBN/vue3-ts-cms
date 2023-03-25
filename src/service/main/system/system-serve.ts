@@ -2,8 +2,8 @@ import { yhRequest } from '../../index'
 
 export function requestPageList(
   pageName: string,
-  pageOffset: number,
-  pageSize: number,
+  pageOffset?: number,
+  pageSize?: number,
   SearchInfo?: object
 ) {
   return yhRequest.post({
@@ -21,6 +21,8 @@ export function requestDeletePageDate(pageName: string, id: string) {
   })
 }
 export function requestCreatePgeDate(pageName: string, param: any) {
+  console.log(pageName)
+  console.log(param)
   return yhRequest.post({
     url: `${pageName}`,
     data: {

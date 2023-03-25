@@ -20,19 +20,20 @@
         v-bind:="dialogFormConfig"
         ref="pageModalRef"
         :dialogTitle="dialogTitle"
-        pageName="users"
+        pageName="role"
+        :otherInfo="otherInfo"
       >
-        <template>
+        <div class="pageTree">
           <el-tree
             ref="treeRef"
-            :data="data"
+            :data="menu"
             show-checkbox
-            default-expand-all
             node-key="id"
             highlight-current
-            :props="defaultProps"
+            :props="{ children: 'children', label: 'name' }"
+            @check="handleCheckChange"
           />
-        </template>
+        </div>
       </pageModal>
     </div>
   </div>
@@ -47,15 +48,30 @@ import { tableModel } from './config/role-table-model'
 import { dialogFormConfig } from './config/role-dialog-model'
 import { userCreteAndUpdate } from '@/hooks/useCreateAndUpdate'
 import { userPageCommunication } from '@/hooks/usePageSearch'
+import { getWriteBackTreeMenuId } from '@/utils/map-menus'
+import { useRoot } from '@/store/root/root'
+import { computed, nextTick, ref } from 'vue'
+import { ElTree } from 'element-plus'
+const treeRef = ref<InstanceType<typeof ElTree>>()
 const createCb = () => {
-  //创建用户的时候显示密码
-  const pwdItem = dialogFormConfig.formModel.find((item) => item.bingValueType === 'password')
-  pwdItem!.isHide = false
+  //创建时role的单独回调
 }
-const updateCb = () => {
-  //修改用户的时候不显示密码
-  const pwdItem = dialogFormConfig.formModel.find((item) => item.bingValueType === 'password')
-  pwdItem!.isHide = true
+const updateCb = (row: any) => {
+  //编辑时role的单独回调
+  //获取当前点击编辑项的数据
+  const WriteBackTreeMenuId = getWriteBackTreeMenuId(row.menuList)
+  nextTick(() => {
+    treeRef.value?.setCheckedKeys(WriteBackTreeMenuId, false)
+  })
+}
+
+//设置编辑以及创建点开的菜单
+const rootStore = useRoot()
+rootStore.getInitData()
+const menu = computed(() => rootStore.generalMenu)
+const otherInfo = ref()
+const handleCheckChange = (data: any, data1: any) => {
+  otherInfo.value = { menuList: [...data1.checkedKeys, ...data1.halfCheckedKeys] }
 }
 //新建和编辑
 const { pageModalRef, dialogTitle, handleCreate, handleUpdate } = userCreteAndUpdate(
@@ -66,3 +82,9 @@ const { pageModalRef, dialogTitle, handleCreate, handleUpdate } = userCreteAndUp
 //search和content通信
 const { pageContentRef, handleReSet, handleSearch } = userPageCommunication()
 </script>
+
+<style lang="less" scoped>
+.pageTree {
+  margin-left: -305px;
+}
+</style>

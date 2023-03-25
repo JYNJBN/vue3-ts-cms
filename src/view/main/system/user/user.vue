@@ -33,7 +33,7 @@ import { tableModel } from './config/user-table-model'
 import { userPageCommunication } from '@/hooks/usePageSearch'
 import { dialogFormConfig } from './config/user-dialog-model'
 import { userCreteAndUpdate } from '@/hooks/useCreateAndUpdate'
-import { userRoot } from '@/store/root/root'
+import { useRoot } from '@/store/root/root'
 import { computed } from 'vue'
 //user的hook创建用户和修改时调用
 const createCb = () => {
@@ -47,7 +47,7 @@ const updateCb = () => {
   pwdItem!.isHide = true
 }
 //使用rootStore并且将roleList和departmentList储存在state中
-const rootStore = userRoot()
+const rootStore = useRoot()
 rootStore.getInitData()
 //这里使用dialogFormConfigRef响应式数据，它的依赖是dialogFormConfig，而使用rootSore去发请求获取数据是异步任务，这里可以保证当rootStore里的departmentLIst和roleList有数据后重新加载modal界面
 const dialogFormConfigRef = computed(() => {

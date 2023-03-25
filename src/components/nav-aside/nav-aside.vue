@@ -45,7 +45,7 @@ import router from '@/router'
 
 import { computed, defineProps } from 'vue'
 import { useRoute } from 'vue-router'
-import { getTheIdOrTheNameCorrespondingToTheCurrentPath } from '@/utils/generatePermissionTable'
+import { getTheIdOrTheNameCorrespondingToTheCurrentPath } from '@/utils/map-menus'
 const loginStore = useLogin()
 //菜单表数据
 const userMenu = computed(() => loginStore.userMenu)

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { accountLoginRequest, requestUserInfo, requestUserMenu } from '@/service/login/login-serve'
 import localCache from '@/utils/cache'
-import { getJurisdictionRouteMenu, getPermissionButtonArr } from '@/utils/generatePermissionTable'
+import { getJurisdictionRouteMenu, getPermissionButtonArr } from '@/utils/map-menus'
 
 import type { accountFormObj } from './login-type'
 import router from '@/router'
@@ -36,7 +36,7 @@ export const useLogin = defineStore('login', {
       }
       let userMenu: [] | null = []
       userMenu = localCache.getLocalCache('userMenu')
-      if (userMenu) {
+      if (userMenu?.length) {
         this.userMenu = userMenu
         //动态添加路由
         getJurisdictionRouteMenu(this.userMenu).forEach((el) => {

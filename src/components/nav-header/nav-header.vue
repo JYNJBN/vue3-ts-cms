@@ -20,7 +20,7 @@
         <el-dropdown-menu>
           <el-dropdown-item>用户信息</el-dropdown-item>
           <el-dropdown-item>系统管理</el-dropdown-item>
-          <el-dropdown-item>退出登录</el-dropdown-item>
+          <el-dropdown-item @click="handlerSignOut">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -30,9 +30,11 @@
 import { ref, defineEmits, computed, Ref } from 'vue'
 import { useLogin } from '@/store/login/login'
 import yhBreadCrumb from '@/base-ui/bread-crumb/yh-bread-crumb.vue'
-import { pathMapBreadCrumbValue } from '@/utils/generatePermissionTable'
+import { pathMapBreadCrumbValue } from '@/utils/map-menus'
 import { useRoute } from 'vue-router'
 import type { breadCrumbItem } from '@/base-ui/bread-crumb/yh-bread-crumb-type'
+import cache from '@/utils/cache'
+import router from '@/router'
 const emit = defineEmits(['changeFoldStatus'])
 //默认不折叠
 let controlFold = ref(true)
@@ -46,6 +48,10 @@ const route = useRoute()
 const breadCrumbValue: Ref<breadCrumbItem[]> = computed(() => {
   return pathMapBreadCrumbValue(loginStore.userMenu, route.path)
 })
+const handlerSignOut = () => {
+  cache.deleteLocalCache('token')
+  router.push('/login')
+}
 </script>
 <style lang="less">
 .nav-header {

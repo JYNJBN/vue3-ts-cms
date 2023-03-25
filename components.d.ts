@@ -7,11 +7,17 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    EchartBar: typeof import('./src/components/page-echart/echart-bar.vue')['default']
+    EchartLine: typeof import('./src/components/page-echart/echart-line.vue')['default']
+    EchartMap: typeof import('./src/components/page-echart/echart-map.vue')['default']
+    EchartPie: typeof import('./src/components/page-echart/echart-pie.vue')['default']
+    EchartRose: typeof import('./src/components/page-echart/echart-rose.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
@@ -40,7 +46,6 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
-    ElTree: typeof import('element-plus/es')['ElTree']
     NavAside: typeof import('./src/components/nav-aside/nav-aside.vue')['default']
     NavHeader: typeof import('./src/components/nav-header/nav-header.vue')['default']
     PageContent: typeof import('./src/components/page-content/page-content.vue')['default']

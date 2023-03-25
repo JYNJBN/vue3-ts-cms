@@ -61,11 +61,15 @@ export const useSystem = defineStore('system', {
     },
     //创建
     async createPageData(pageName: string, param: object) {
+      console.log(param)
+
       await requestCreatePgeDate(pageName, param)
       this.getPageList(pageName, 0, 10)
     },
     //编辑
     async updatePageData(pageName: string, id: string, param: object) {
+      console.log(id)
+
       await requestUpdatePageData(pageName, id, param)
       this.getPageList(pageName, 0, 10)
     }

@@ -1,7 +1,7 @@
 import { requestPageList } from '@/service/main/system/system-serve'
 import { defineStore } from 'pinia'
 //这里存放的是公共数据方法
-export const userRoot = defineStore('root', {
+export const useRoot = defineStore('root', {
   state: () => {
     return {
       departmentList: [] as any[],
@@ -22,7 +22,10 @@ export const userRoot = defineStore('root', {
         data: { list: roleList }
       } = await requestPageList('/role', 0, 100)
       this.roleList = roleList
-      const { list: generalMenu } = await requestPageList('menu')
+      const {
+        data: { list: generalMenu }
+      } = await requestPageList('menu')
+      this.generalMenu = generalMenu
     }
   }
 })

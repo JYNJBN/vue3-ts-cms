@@ -14,15 +14,14 @@ export function userCreteAndUpdate(dialogFormConfig: any, createCb?: any, update
       for (const item of dialogFormConfig.formModel) {
         if (item.bingValueType in row) {
           dialogObj[item.bingValueType] = row[item.bingValueType]
-        }
-        //如果item里没有id属性添加一个id属性id属性就是这行的id,修改的时候需要用到id
-        else if (!item.id) {
           dialogObj.id = row.id
         }
+        //如果item里没有id属性添加一个id属性id属性就是这行的id,修改的时候需要用到id
       }
       // console.log(Object.keys(row))
+      console.log(dialogObj)
       pageModalRef.value.formItemBindValue = { ...dialogObj }
-      updateCb()
+      updateCb(row)
     }
   }
   const handleCreate = () => {

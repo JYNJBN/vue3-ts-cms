@@ -54,6 +54,10 @@ const props = defineProps({
     type: String,
     default: '',
     required: true
+  },
+  otherInfo: {
+    type: Object as any,
+    default: () => ({})
   }
 })
 const centerDialogVisible = ref(false)
@@ -62,11 +66,17 @@ const systemStore = useSystem()
 const confirmClick = () => {
   centerDialogVisible.value = false
   if (props.dialogTitle.indexOf('创建') + 1) {
-    console.log(formItemBindValue.value)
-    systemStore.createPageData(props.pageName, formItemBindValue.value)
+    systemStore.createPageData(props.pageName, {
+      ...formItemBindValue.value,
+      ...props.otherInfo
+    })
   } else {
     //编辑
-    systemStore.updatePageData(props.pageName, formItemBindValue.value.id, formItemBindValue.value)
+    console.log(props.otherInfo.value)
+    systemStore.updatePageData(props.pageName, formItemBindValue.value.id, {
+      ...formItemBindValue.value,
+      ...props.otherInfo
+    })
   }
 }
 const cancelClick = () => {

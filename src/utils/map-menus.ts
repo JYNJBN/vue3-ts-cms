@@ -103,10 +103,25 @@ function getPermissionButtonArr(userMenu: any[]) {
   _recursionGetPermissionButtonArr(userMenu)
   return PermissionButtonArr
 }
-
+//获取编辑回写的treeMenu
+function getWriteBackTreeMenuId(menuList: any) {
+  const writeBackTreeMenuId: any[] = []
+  const _recursionSetWriteBackTreeMenuId = (menuList: any) => {
+    for (const menuItem of menuList) {
+      if (menuItem.children) {
+        _recursionSetWriteBackTreeMenuId(menuItem.children)
+      } else {
+        writeBackTreeMenuId.push(menuItem.id)
+      }
+    }
+  }
+  _recursionSetWriteBackTreeMenuId(menuList)
+  return writeBackTreeMenuId
+}
 export {
   getJurisdictionRouteMenu,
   getTheIdOrTheNameCorrespondingToTheCurrentPath,
   pathMapBreadCrumbValue,
-  getPermissionButtonArr
+  getPermissionButtonArr,
+  getWriteBackTreeMenuId
 }
