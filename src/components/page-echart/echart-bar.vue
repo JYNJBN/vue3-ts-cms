@@ -4,13 +4,21 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue'
+import { computed, defineProps, withDefaults } from 'vue'
 import yhEchart from '@/base-ui/echart/yh-echart.vue'
 import * as echarts from 'echarts'
 import { lineDataType } from './page-echart-type'
-const props = defineProps<{
-  lineData: lineDataType
-}>()
+const props = withDefaults(
+  defineProps<{
+    lineData: lineDataType
+  }>(),
+  {
+    lineData: () => ({
+      value: [],
+      xAxisName: []
+    })
+  }
+)
 const options = computed(() => ({
   xAxis: {
     data: props.lineData.xAxisName,
